@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações - The Librarian</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link href="./style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <aside data-include="user"></aside>
+
+        <main>
+            <button id="menu-btn" class="menu-toggle" type="button" aria-label="Abrir menu">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+
+            <h1>Configurações da Conta</h1>
+
+            <div class="center-panel">
+                <div class="settings-grid">
+                <aside class="profile-card">
+                    <div class="profile-avatar" id="profile-avatar"> <span id="avatar-initials">?</span> </div>
+                    <h2 id="profile-name">Usuário</h2>
+                    <p id="profile-email" class="text-muted">seu@email.com</p>
+                    <p class="text-muted" style="margin-top:0.6rem;">Altere seu nome ou senha à direita. As alterações são persistidas no servidor quando possível.</p>
+                </aside>
+
+                <section class="settings-panel">
+                    <form id="settings-form" class="settings-form">
+                        <label for="settings-email">E-mail</label>
+                        <div class="input-group">
+                            <input id="settings-email" name="email" type="email" autocomplete="email">
+                        </div>
+                        <div class="field-error" id="settings-email-error" aria-live="polite"></div>
+
+                        <label for="settings-name">Nome</label>
+                        <div class="input-group">
+                            <input id="settings-name" name="name" type="text" placeholder="Seu nome (opcional)" autocomplete="name">
+                        </div>
+                        <div class="field-error" id="settings-name-error" aria-live="polite"></div>
+
+                        <div class="two-cols">
+                            <div>
+                                <label for="settings-password">Nova senha</label>
+                                <div class="input-group">
+                                    <input id="settings-password" name="password" type="password" placeholder="Deixe em branco para não alterar" autocomplete="new-password">
+                                    <button type="button" class="toggle-password" data-target="settings-password" aria-label="Mostrar senha">mostrar</button>
+                                </div>
+                                <div class="password-strength" id="settings-password-strength" aria-hidden="true">
+                                    <div class="strength-bar"><div class="strength-fill" style="width:0%"></div></div>
+                                    <div class="strength-text" id="settings-password-strength-text"></div>
+                                </div>
+                                <div class="field-error" id="settings-password-error" aria-live="polite"></div>
+                            </div>
+                            <div>
+                                <label for="settings-password-confirm">Confirmar nova senha</label>
+                                <div class="input-group">
+                                    <input id="settings-password-confirm" name="password_confirm" type="password" placeholder="Confirme a senha" autocomplete="new-password">
+                                    <button type="button" class="toggle-password" data-target="settings-password-confirm" aria-label="Mostrar confirmação">mostrar</button>
+                                </div>
+                                <div class="field-error" id="settings-password-confirm-error" aria-live="polite"></div>
+                            </div>
+                        </div>
+
+                        <div class="actions-row">
+                            <button id="settings-save-btn" type="button" class="upload-action-btn" disabled>
+                                <span class="btn-text">Salvar alterações</span>
+                                <span class="btn-spinner" aria-hidden="true"></span>
+                            </button>
+                            <button id="settings-cancel" type="button" class="upload-action-btn-secondary">Cancelar</button>
+                        </div>
+                    </form>
+
+                    <p id="settings-feedback" class="upload-feedback"></p>
+                </section>
+                </div>
+            </div>
+
+                <!-- Confirmation modal -->
+                <div id="settings-confirm-modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+                    <div class="modal-backdrop"></div>
+                    <div class="modal-content" role="document">
+                        <h3>Confirmar alterações</h3>
+                        <p id="settings-confirm-text">Deseja realmente salvar as alterações do seu perfil?</p>
+                        <div style="display:flex; gap:0.6rem; justify-content:flex-end; margin-top:1rem;">
+                            <button id="settings-confirm-cancel" class="upload-action-btn-secondary" type="button">Cancelar</button>
+                            <button id="settings-confirm-ok" class="upload-form-button" type="button">Confirmar</button>
+                        </div>
+                    </div>
+                </div>
+        </main>
+    </div>
+
+    <script src="./config.js"></script>
+    <script src="./include-sidebar.js"></script>
+    <script src="./session.js"></script>
+    <script src="./settings.js"></script>
+    <script>
+        window.AppSession.protectRoute("Usuário");
+
+        const logoutLink = document.getElementById("logout-link-user");
+        if (logoutLink) {
+            logoutLink.addEventListener("click", (event) => {
+                event.preventDefault();
+                window.AppSession.logout();
+            });
+        }
+    </script>
+</body>
+</html>

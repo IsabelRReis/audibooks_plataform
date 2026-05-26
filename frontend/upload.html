@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload de Audiobooks - The Librarian</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link href="./style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <aside data-include="admin"></aside>
+
+        <main>
+            <button id="menu-btn" class="menu-toggle" type="button" aria-label="Abrir menu">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+            <h1>Enviar Novo Audiobook</h1>
+
+            <section class="insights upload-intro">
+                <div>
+                    <span class="material-symbols-outlined">upload_file</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>Máximo de 25MB</h3>
+                            <p style="font-size: 0.9rem; margin-top: 0.4rem;">por arquivo PDF</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="processando">
+                    <span class="material-symbols-outlined">description</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>Formato PDF</h3>
+                            <p style="font-size: 0.9rem; margin-top: 0.4rem;">apenas .pdf acceptados</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="concluido">
+                    <span class="material-symbols-outlined">schedule</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>Processamento</h3>
+                            <p style="font-size: 0.9rem; margin-top: 0.4rem;">automático e em background</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="upload-panel">
+                <h2>Selecionar PDF para Conversão</h2>
+                <p class="text-muted">Arraste um arquivo .pdf para a área abaixo ou clique para procurar. O processamento acontece automaticamente após o envio.</p>
+
+                <form id="upload-form" class="upload-form upload-form-drag">
+                    <div id="upload-drop-zone" class="upload-drop-zone">
+                        <span class="material-symbols-outlined upload-icon">cloud_upload</span>
+                        <h3>Arraste o PDF aqui</h3>
+                        <p class="text-muted">ou clique para procurar um arquivo</p>
+                    </div>
+                    <input id="upload-input" name="files" type="file" accept=".pdf,application/pdf" required hidden>
+                </form>
+
+                <div class="upload-progress" aria-live="polite" id="upload-progress-container" style="display: none;">
+                    <div id="upload-progress-bar" class="upload-progress-bar"></div>
+                </div>
+
+                <p id="upload-feedback" class="upload-feedback"></p>
+
+                <div id="upload-result" class="upload-result" style="display: none;">
+                    <h3 style="margin-bottom: 0.8rem; color: var(--color-dark);">Detalhes do Upload</h3>
+                    <ul id="upload-result-list" class="upload-result-list"></ul>
+                </div>
+            </section>
+
+            <section class="upload-panel">
+                <h2>Uploads Recentes</h2>
+                <p class="text-muted" id="uploads-summary"></p>
+
+                <table class="status-table">
+                    <thead>
+                        <tr>
+                            <th>Arquivo</th>
+                            <th>Status</th>
+                            <th>Tamanho</th>
+                            <th>Data de Envio</th>
+                            <th>Conversão</th>
+                            <th>Faixas</th>
+                            <th>Ações</th>
+                            <th>Erro</th>
+                        </tr>
+                    </thead>
+                    <tbody id="uploads-table-body">
+                        <tr>
+                            <td colspan="8" style="text-align: center; color: var(--color-info-dark);">Carregando uploads...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+
+    <script src="./config.js"></script>
+    <script src="./include-sidebar.js"></script>
+    <script src="./session.js"></script>
+    <script src="./upload.js"></script>
+    <script>
+        window.AppSession.protectRoute("Admin");
+
+        const logoutLink = document.getElementById("logout-link-admin");
+        if (logoutLink) {
+            logoutLink.addEventListener("click", (event) => {
+                event.preventDefault();
+                window.AppSession.logout();
+            });
+        }
+
+    </script>
+</body>
+</html>

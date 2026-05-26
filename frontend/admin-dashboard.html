@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link href="./style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <aside data-include="admin"></aside>
+        <main>
+            <button id="menu-btn" class="menu-toggle" type="button" aria-label="Abrir menu">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+            <h1>Painel Administrativo</h1>
+            <div class="insights">
+                <div>
+                    <span class="material-symbols-outlined">groups</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>Usuarios Ativos</h3>
+                            <h1 id="metric-active-users">0</h1>
+                        </div>
+                    </div>
+                    <small class="text-muted">Dados em tempo real</small>
+                </div>
+                <div class="processando">
+                    <span class="material-symbols-outlined">sync</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>Conversões em Fila</h3>
+                            <h1 id="metric-queue-conversions">0</h1>
+                        </div>
+                    </div>
+                    <small class="text-muted">Dados em tempo real</small>
+                </div>
+                <div class="concluido">
+                    <span class="material-symbols-outlined">task_alt</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>Processos Concluídos</h3>
+                            <h1 id="metric-completed-processes">0</h1>
+                        </div>
+                    </div>
+                    <small class="text-muted">Dados em tempo real</small>
+                </div>
+            </div>
+
+            <section id="users-dashboard-panel" class="users-dashboard-panel">
+                <h2>Dashboard de Usuários</h2>
+                <p id="users-dashboard-feedback" class="text-muted">Carregando usuários...</p>
+
+                <div class="users-metrics-grid">
+                    <article class="users-metric-card">
+                        <h3>Total de Usuários</h3>
+                        <h1 id="users-total-count">0</h1>
+                    </article>
+                    <article class="users-metric-card">
+                        <h3>Administradores</h3>
+                        <h1 id="users-admin-count">0</h1>
+                    </article>
+                    <article class="users-metric-card">
+                        <h3>Usuários Padrão</h3>
+                        <h1 id="users-standard-count">0</h1>
+                    </article>
+                    <article class="users-metric-card users-metric-card-highlight">
+                        <h3>Novos (7 dias)</h3>
+                        <h1 id="users-recent-count">0</h1>
+                    </article>
+                </div>
+
+                <div class="users-table-wrapper">
+                    <table class="users-table">
+                        <thead>
+                            <tr>
+                                <th>E-mail</th>
+                                <th>Total de Uploads</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-table-body">
+                            <tr>
+                                <td colspan="2" class="users-empty-state">Carregando usuários...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="permission-panel">
+                <h2>Conceder Acesso a Usuários</h2>
+                <p class="text-muted">Selecione um audiobook pronto e libere para um ou vários usuários.</p>
+
+                <form id="permission-form" class="permission-form">
+                    <label for="permission-upload-select">Audiobook</label>
+                    <select id="permission-upload-select" required>
+                        <option value="">Selecione um audiobook</option>
+                    </select>
+
+                    <div class="permission-header-row">
+                        <label>Usuários</label>
+                        <button id="select-all-users-btn" type="button" class="permission-secondary-btn">Selecionar todos</button>
+                    </div>
+                    <div id="permission-users-list" class="permission-users-list"></div>
+
+                    <button type="submit">Liberar Acesso</button>
+                </form>
+                <p id="permission-feedback" class="upload-feedback"></p>
+
+                <div class="granted-access-panel">
+                    <h3>Usuários com acesso ao audiobook selecionado</h3>
+                    <ul id="granted-users-list" class="granted-users-list"></ul>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="./config.js"></script>
+    <script src="./include-sidebar.js"></script>
+    <script src="./session.js"></script>
+    <script src="./admin-upload.js"></script>
+    <script>
+        window.AppSession.protectRoute("Admin");
+        const logoutLink = document.getElementById("logout-link-admin");
+        if (logoutLink) {
+            logoutLink.addEventListener("click", (event) => {
+                event.preventDefault();
+                window.AppSession.logout();
+            });
+        }
+    </script>
+</body>
+</html>

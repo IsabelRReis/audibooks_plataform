@@ -1,0 +1,16 @@
+piper-tts
+soundfile
+torch
+numpy
+fastapi
+pdfplumber
+pymongo
+python-dotenv
+uvicorn
+PyJWT
+python-multipart
+pydub
+pytest
+pdf2image
+pytesseract
+Pillow

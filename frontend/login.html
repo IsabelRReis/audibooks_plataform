@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Librarian</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./auth.css">
+</head>
+<body>
+    <main class="auth-layout">
+        <section class="auth-card">
+            <h1>Entrar</h1>
+            <p>Acesse sua biblioteca de audiobooks.</p>
+            <form id="login-form" class="auth-form">
+                <label for="login-email">E-mail</label>
+                <input id="login-email" name="email" type="email" required>
+
+                <label for="login-password">Senha</label>
+                <input id="login-password" name="password" type="password" minlength="8" required>
+
+                <button type="submit">Entrar</button>
+                <p id="login-feedback" class="auth-feedback"></p>
+            </form>
+            <p class="auth-alt">Novo por aqui? <a href="./register.html">Criar conta</a></p>
+        </section>
+    </main>
+    <script src="./config.js"></script>
+    <script src="./auth.js"></script>
+</body>
+</html>

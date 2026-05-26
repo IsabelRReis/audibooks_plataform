@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player do Audiobook</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link href="./style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <aside data-include="user"></aside>
+
+        <main>
+            <button id="menu-btn" class="menu-toggle" type="button" aria-label="Abrir menu">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+            <section class="player-header">
+                <a href="./index.html" class="library-btn library-btn-secondary player-back-btn">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                    Voltar para biblioteca
+                </a>
+                <h1 id="player-title">Player do Audiobook</h1>
+                <p id="player-feedback" class="text-muted"></p>
+            </section>
+
+            <section class="player-shell">
+                <div class="player-controls-panel">
+                    <div class="player-audio-footer">
+                        <audio id="track-audio" controls preload="metadata"></audio>
+                    </div>
+                    <div class="player-buttons-row">
+                        <button id="prev-track" class="library-btn library-btn-secondary" type="button">Faixa anterior</button>
+                        <button id="next-track" class="library-btn library-btn-secondary" type="button">Próxima faixa</button>
+                    </div>
+                    <div id="current-track-meta" class="player-current-track text-muted"></div>
+                </div>
+
+                <div class="player-playlist-panel">
+                    <h2>Faixas</h2>
+                    <div id="player-track-list" class="player-track-list"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="./config.js"></script>
+    <script src="./include-sidebar.js"></script>
+    <script src="./session.js"></script>
+    <script src="./player.js?v=20260421-1"></script>
+    <script>
+        window.AppSession.protectRoute("Usuário");
+
+        const logoutLink = document.getElementById("logout-link-user");
+        if (logoutLink) {
+            logoutLink.addEventListener("click", (event) => {
+                event.preventDefault();
+                window.AppSession.logout();
+            });
+        }
+    </script>
+</body>
+</html>

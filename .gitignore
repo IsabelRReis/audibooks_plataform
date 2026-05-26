@@ -1,0 +1,35 @@
+# Python virtual environments
+.venv/
+venv/
+backend/text-to-speak/venv/
+backend/text-to-speak/.venv/
+
+# Python cache/artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Local environment files
+.env
+.env.*
+!.env.example
+backend/text-to-speak/.env
+
+# Logs and local runtime artifacts
+*.log
+backend/text-to-speak/logs/
+backend/text-to-speak/temp_text/
+backend/text-to-speak/uploads/
+backend/text-to-speak/audios/
+backend/text-to-speak/*.wav
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

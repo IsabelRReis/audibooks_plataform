@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link href="./style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <aside data-include="user"></aside>
+ <main>
+     <button id="menu-btn" class="menu-toggle" type="button" aria-label="Abrir menu">
+          <span class="material-symbols-outlined">menu</span>
+     </button>
+    <h1>Minha Biblioteca</h1>
+
+    <section class="insights library-insights">
+        <div>
+            <span class="material-symbols-outlined">library_books</span>
+            <div class="middle">
+                <div class="left">
+                    <h3>Audiobooks Liberados</h3>
+                    <h1 id="library-count">0</h1>
+                </div>
+            </div>
+            <small class="text-muted">Permissões ativas para o seu perfil</small>
+        </div>
+    </section>
+
+    <section class="library-section">
+        <h2>Audiobooks Disponíveis</h2>
+        <p id="library-feedback" class="text-muted"></p>
+        <div id="library-cards" class="library-cards"></div>
+    </section>
+</main>
+    </div>
+    <script src="./config.js"></script>
+    <script src="./include-sidebar.js"></script>
+    <script src="./session.js"></script>
+    <script src="./index.js"></script>
+    <script>
+        window.AppSession.protectRoute("Usuário");
+
+        const logoutLink = document.getElementById("logout-link-user");
+        if (logoutLink) {
+            logoutLink.addEventListener("click", (event) => {
+                event.preventDefault();
+                window.AppSession.logout();
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+.git/
+.venv/
+**/__pycache__/
+backend/text-to-speak/venv/
+backend/text-to-speak/uploads/
+backend/text-to-speak/audios/
+backend/text-to-speak/temp_text/
+backend/text-to-speak/logs/
+backend/text-to-speak/voices/

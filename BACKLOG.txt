@@ -1,0 +1,409 @@
+================================================================================
+                          BACKLOG - THE LIBRARIAN
+                        Projeto de Conversão de Audiobooks
+================================================================================
+
+PRIORIDADE: CRÍTICA
+================================================================================
+
+[CRÍTICO-01] Sistema de Autenticação e Sessão
+  Status: ✓ CONCLUÍDO
+  Descrição: Login, registro e gerenciamento de sessão para admin e usuários
+  Frontend: login.html, register.html, session.js, auth.js
+  Backend: POST /auth/register, POST /auth/login, GET /auth/me
+
+[CRÍTICO-02] Separação de Perfis (Admin vs Usuário)
+  Status: ✓ CONCLUÍDO
+  Descrição: Admin faz upload; Usuário apenas escuta
+  - Admin: acesso à página upload.html e admin-dashboard.html
+  - Usuário: acesso apenas a index.html e player.html
+  Backend: require_roles() em todas as rotas sensíveis
+
+[CRÍTICO-03] Upload e Processamento de PDFs (Admin)
+  Status: ✓ CONCLUÍDO
+  Descrição: Admin envia PDF que é convertido em audiobook automaticamente
+  Endpoint: POST /admin/uploads
+  Features:
+    - Validação de arquivo (.pdf, máx 25MB)
+    - Armazenamento em /uploads/
+    - Background task de processamento
+    - Progresso em tempo real via status API
+
+[CRÍTICO-04] Reprodução de Áudio (Usuário)
+  Status: ✓ CONCLUÍDO
+  Descrição: Usuário reproduz faixas de audiobooks liberados
+  Frontend: player.html, player.js
+  Endpoints: GET /library/audiobooks, GET /library/audiobooks/{id}/tracks
+  Controles: play, pause, next, previous, volume
+
+[CRÍTICO-05] Gestão de Permissões (Admin)
+  Status: ✓ CONCLUÍDO
+  Descrição: Admin libera audiobooks para usuários específicos
+  Endpoints: 
+    - POST /admin/library/permissions
+    - POST /admin/library/permissions/bulk
+    - DELETE /admin/library/permissions
+  Features:
+    - Concessão em massa
+    - Revogação de acesso
+    - Visualização de usuários com acesso
+
+
+PRIORIDADE: ALTA
+================================================================================
+
+[ALTA-01] Dashboard Administrativo
+  Status: ✓ CONCLUÍDO
+  Descrição: Painel com métricas e gestão de uploads e usuários
+  Página: admin-dashboard.html
+  Features:
+    - Métricas: usuários ativos, conversões em fila, processos concluídos
+    - Tabela de usuários com total de uploads
+    - Seleção de audiobooks para concessão de permissões
+    - Lista de usuários com acesso a cada audiobook
+
+[ALTA-02] Biblioteca do Usuário
+  Status: ✓ CONCLUÍDO (apenas leitura)
+  Descrição: Visualização de audiobooks liberados pelo admin
+  Página: index.html, index.js
+  Features:
+    - Exibição em cards com capa/informações
+    - Acesso rápido ao player
+    - Visualização de faixas
+    - Filtros: duração, quantidade de faixas
+
+[ALTA-03] Conversão de PDF para Áudio
+  Status: ✓ CONCLUÍDO
+  Descrição: Backend processa PDF e gera faixas de áudio
+  Ferramentas: pdfplumber (extração), Piper (síntese de voz)
+  Features:
+    - Divisão automática em faixas (páginas configuráveis)
+    - Detecção de capítulos
+    - Conversão em background
+    - Estimativa de duração
+    - Suporte para português brasileiro
+
+[ALTA-04] Armazenamento de Dados (MongoDB)
+  Status: ✓ CONCLUÍDO (implementação base)
+  Descrição: Persistência de usuários, audiobooks, faixas e permissões
+  Collections:
+    - users
+    - audiobooks
+    - tracks
+    - pdf_uploads (legado)
+    - permissions
+
+[ALTA-05] API RESTful Completa
+  Status: ✓ CONCLUÍDO (base implementada)
+  Endpoints principais:
+    Auth:
+      - POST /auth/register
+      - POST /auth/login
+      - GET /auth/me
+    Admin:
+      - POST /admin/uploads
+      - GET /admin/uploads
+      - GET /admin/users
+      - POST /admin/library/permissions
+      - DELETE /admin/library/permissions
+    Biblioteca:
+      - GET /library/audiobooks
+      - GET /library/audiobooks/{id}/tracks
+      - GET /library/tracks/{id}/stream
+      - DELETE /library/tracks/{id} (admin-only)
+      - DELETE /library/audiobooks/{id} (admin-only)
+
+
+PRIORIDADE: MÉDIA
+================================================================================
+
+[MÉDIA-01] Melhorias na Interface do Usuário
+  Status: ⏳ PENDENTE
+  Descrição: Refinamentos visuais e UX
+  Tarefas:
+    - [ ] Adicionar imagens/capas aos audiobooks
+    - [ ] Melhorar responsividade em mobile
+    - [ ] Dark mode opcional
+    - [ ] Animações de transição
+    - [ ] Ícones melhores para ações
+    - [ ] Loading states mais claros
+
+[MÉDIA-02] Recursos de Busca e Filtro
+  Status: ⏳ PENDENTE
+  Descrição: Permitir busca e filtros na biblioteca
+  Backend: GET /library/audiobooks com query params
+  Frontend: Barra de busca em index.html
+  Features:
+    - [ ] Busca por título
+    - [ ] Filtro por duração
+    - [ ] Ordenação: recente, título, duração
+    - [ ] Paginação
+
+[MÉDIA-03] Histórico de Reprodução
+  Status: ⏳ PENDENTE
+  Descrição: Rastrear progresso do usuário em cada faixa
+  Backend: Collection "listening_history"
+  Features:
+    - [ ] Salvar posição atual (segundos)
+    - [ ] Retomar de onde parou
+    - [ ] Tempo total escutado
+    - [ ] Audiobooks recentemente escutados
+
+[MÉDIA-04] Favoritos/Marcações
+  Status: ⏳ PENDENTE
+  Descrição: Usuário marca audiobooks como favoritos
+  Backend: Collection "favorites"
+  Features:
+    - [ ] Marcar/desmarcar como favorito
+    - [ ] Visualização de favoritos
+    - [ ] Ícone visual de favorito
+    - [ ] Contadores
+
+[MÉDIA-05] Comentários e Avaliações
+  Status: ⏳ PENDENTE
+  Descrição: Usuários avaliam e comentam audiobooks
+  Backend: Collection "reviews"
+  Features:
+    - [ ] Avaliação em estrelas (1-5)
+    - [ ] Seção de comentários
+    - [ ] Moderação de conteúdo
+    - [ ] Exibição de média de avaliações
+
+[MÉDIA-06] Sistema de Notificações
+  Status: ⏳ PENDENTE
+  Descrição: Alertar usuários sobre novos audiobooks liberados
+  Features:
+    - [ ] Notificações em tempo real
+    - [ ] Email de novos lançamentos
+    - [ ] Preferências de notificação
+    - [ ] Histórico de notificações
+
+[MÉDIA-07] Gerenciamento de Usuários (Admin)
+  Status: ⏳ PENDENTE
+  Descrição: Painel para criar, editar e deletar usuários
+  Endpoint: CRUD /admin/users
+  Features:
+    - [ ] Criação manual de usuários
+    - [ ] Edição de perfil e role
+    - [ ] Desativação de contas
+    - [ ] Reset de senha
+    - [ ] Visualização de estatísticas por usuário
+
+[MÉDIA-08] Logs e Auditoria
+  Status: ⏳ PENDENTE
+  Descrição: Registrar ações importantes para auditoria
+  Backend: Collection "audit_logs"
+  Features:
+    - [ ] Log de uploads
+    - [ ] Log de concessão/revogação de permissões
+    - [ ] Log de acessos ao sistema
+    - [ ] Log de exclusões
+
+[MÉDIA-09] Controle de Qualidade de Áudio
+  Status: ⏳ PENDENTE
+  Descrição: Configurações de síntese de voz
+  Features:
+    - [ ] Múltiplas vozes disponíveis
+    - [ ] Ajuste de velocidade de fala
+    - [ ] Ajuste de pitch
+    - [ ] Seleção de idioma/sotaque
+
+
+PRIORIDADE: BAIXA
+================================================================================
+
+[BAIXA-01] Exportação de Audiobooks
+  Status: ⏳ PENDENTE
+  Descrição: Permitir download de audiobooks localmente
+  Features:
+    - [ ] Exportar como ZIP
+    - [ ] Exportar como único MP3
+    - [ ] Manter metadados
+    - [ ] Gerenciar espaço em disco
+
+[BAIXA-02] Sincronização Multi-Dispositivo
+  Status: ⏳ PENDENTE
+  Descrição: Sincronizar progresso entre dispositivos
+  Features:
+    - [ ] Cloud sync de posição
+    - [ ] Marcadores/bookmarks
+    - [ ] Sincronização em background
+    - [ ] Resolução de conflitos
+
+[BAIXA-03] Integração Social
+  Status: ⏳ PENDENTE
+  Descrição: Compartilhamento e recomendações
+  Features:
+    - [ ] Compartilhar audiobook com outros usuários
+    - [ ] Recomendações baseadas em histórico
+    - [ ] Social feed de atividades
+    - [ ] Ratings de outros usuários
+
+[BAIXA-04] Categorização de Audiobooks
+  Status: ⏳ PENDENTE
+  Descrição: Organizar audiobooks em categorias
+  Backend: Field "category" em audiobooks
+  Features:
+    - [ ] Definir categoria no upload
+    - [ ] Browsing por categoria
+    - [ ] Recomendações por categoria
+    - [ ] Tags/palavras-chave
+
+[BAIXA-05] Relatórios e Analytics
+  Status: ⏳ PENDENTE
+  Descrição: Estatísticas de uso e engajamento
+  Features:
+    - [ ] Audiobooks mais escutados
+    - [ ] Tempo médio de escuta
+    - [ ] Taxa de conclusão
+    - [ ] Usuários mais ativos
+    - [ ] Gráficos e dashboards
+
+[BAIXA-06] Suporte a Múltiplos Idiomas
+  Status: ⏳ PENDENTE
+  Descrição: Interface multilíngue
+  Features:
+    - [ ] Tradução para English, Spanish, etc
+    - [ ] Suporte para síntese em outros idiomas
+    - [ ] Deteção de idioma automática
+    - [ ] i18n framework
+
+[BAIXA-07] API Pública
+  Status: ⏳ PENDENTE
+  Descrição: Permitir integração de terceiros
+  Features:
+    - [ ] Documentação OpenAPI/Swagger
+    - [ ] Rate limiting
+    - [ ] API keys
+    - [ ] Webhook support
+
+[BAIXA-08] Modo Offline
+  Status: ⏳ PENDENTE
+  Descrição: Usar audiobooks sem conexão
+  Features:
+    - [ ] Service Worker
+    - [ ] Cache inteligente
+    - [ ] Sincronização quando online
+    - [ ] Storage de dispositivo
+
+
+DÍVIDA TÉCNICA / BUG FIXES
+================================================================================
+
+[TÉCNICA-01] Tratamento de Erros Aprimorado
+  Status: ⏳ PENDENTE
+  Descrição: Melhorar mensagens de erro e logging
+  Tasks:
+    - [ ] Adicionar try-catch em rotas críticas
+    - [ ] Melhorar mensagens de erro para o usuário
+    - [ ] Logging estruturado
+    - [ ] Error tracking (Sentry, etc)
+
+[TÉCNICA-02] Segurança
+  Status: ⏳ PENDENTE
+  Descrição: Melhorias de segurança
+  Tasks:
+    - [ ] Rate limiting em endpoints
+    - [ ] Validação mais rigorosa
+    - [ ] CORS configurado corretamente
+    - [ ] HTTPS em produção
+    - [ ] Sanitização de entrada
+    - [ ] CSRF protection
+
+[TÉCNICA-03] Performance
+  Status: ⏳ PENDENTE
+  Descrição: Otimizações de velocidade
+  Tasks:
+    - [ ] Cache de audiobooks frequentes
+    - [ ] Compressão de áudio
+    - [ ] Lazy loading no frontend
+    - [ ] Indexação de banco de dados
+    - [ ] CDN para arquivos estáticos
+
+[TÉCNICA-04] Testes
+  Status: ⏳ PENDENTE
+  Descrição: Cobertura de testes
+  Tasks:
+    - [ ] Testes unitários Python
+    - [ ] Testes unitários JavaScript
+    - [ ] Testes de integração
+    - [ ] Testes E2E (Cypress, Selenium)
+    - [ ] Testes de carga
+
+[TÉCNICA-05] Documentação
+  Status: ⏳ PENDENTE
+  Descrição: Completar documentação
+  Tasks:
+    - [ ] README melhorado
+    - [ ] API documentation
+    - [ ] Guia de instalação
+    - [ ] Guia de uso (admin e usuário)
+    - [ ] Arquitetura e diagramas
+    - [ ] Troubleshooting guide
+
+[TÉCNICA-06] Deployment
+  Status: ⏳ PENDENTE
+  Descrição: Configuração de ambiente de produção
+  Tasks:
+    - [ ] Dockerfile
+    - [ ] Docker Compose
+    - [ ] CI/CD pipeline
+    - [ ] Environment variables
+    - [ ] Backups automáticos
+    - [ ] Monitoramento
+
+
+IDEIAS FUTURAS / NICE-TO-HAVE
+================================================================================
+
+- Suporte a formatos de entrada: EPUB, audiobooks já convertidos
+- Reconhecimento de voz para busca por voz
+- Transcrição automática dos audiobooks
+- Recomendação por IA (Machine Learning)
+- Playlist criadas por usuários
+- Clubes do livro (discussão em grupo)
+- Marcadores de timestamp com anotações
+- Integração com Spotify, Apple Music
+- PWA (Progressive Web App)
+- Mobile app nativa (React Native, Flutter)
+- Integração com bibliotecas públicas
+- Sistema de pontos/gamificação
+- Prêmios por conclusão de audiobooks
+
+
+================================================================================
+                            RESUMO TÉCNICO
+================================================================================
+
+Stack Atual:
+  Frontend: HTML5, CSS3, Vanilla JavaScript
+  Backend: Python 3, FastAPI
+  Banco: MongoDB
+  Síntese: Piper TTS
+  Extração PDF: pdfplumber
+  Autenticação: JWT
+  Hospedagem: Vercel (frontend), Local/VPS (backend)
+
+Estrutura de Pastas:
+  /frontend     - Aplicação web (HTML, CSS, JS)
+  /backend      - API FastAPI e processamento
+  /uploads      - PDFs enviados
+  /audios       - Arquivos de áudio gerados
+  /temp_text    - Textos temporários
+  /logs         - Logs de processamento
+  /voices       - Modelos de voz Piper
+
+Endpoints Críticos:
+  POST /admin/uploads       - Upload de PDF
+  GET /admin/uploads        - Status dos uploads
+  GET /library/audiobooks   - Lista de audiobooks
+  GET /library/audiobooks/{id}/tracks - Faixas
+  POST /admin/library/permissions - Liberar acesso
+  GET /library/tracks/{id}/stream - Reprodução de áudio
+
+Status Geral: ✓ MVP FUNCIONAL (funcionalidades core implementadas)
+
+
+Última Atualização: 15/05/2026
+Responsável: Equipe de Desenvolvimento
+================================================================================
