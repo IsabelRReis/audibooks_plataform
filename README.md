@@ -1,5 +1,9 @@
 # Plataforma de Conversão de PDF em Audiobook
 
+[![CI](https://github.com/IsabelRReis/audibooks_plataform/actions/workflows/ci.yml/badge.svg)](https://github.com/IsabelRReis/audibooks_plataform/actions/workflows/ci.yml)
+[![Python](https://img.shields.io/badge/python-3.12%2B-blue.svg)](https://www.python.org/downloads/)
+[![License](https://img.shields.io/badge/license-N%C3%A3o%20definida-lightgrey.svg)](#)
+
 Aplicação web responsiva para converter PDFs em audiobooks com autenticação, controle de acesso por perfil e biblioteca protegida por permissão.
 
 ## Visão Geral
@@ -99,6 +103,20 @@ O repositório já inclui:
 - documentação de backlog em [`backlog-produto.md`](backlog-produto.md)
 - checklist de validação em [`checklist-backlog.md`](checklist-backlog.md)
 - comandos mais relevantes em [`comandos-relevantes.txt`](comandos-relevantes.txt)
+- template de issue em [`.github/ISSUE_TEMPLATE/bug_report.md`](.github/ISSUE_TEMPLATE/bug_report.md) e [`.github/ISSUE_TEMPLATE/feature_request.md`](.github/ISSUE_TEMPLATE/feature_request.md)
+- template de pull request em [`.github/pull_request_template.md`](.github/pull_request_template.md)
+
+## Checklist de Release
+
+Antes de publicar uma nova versão:
+
+- [ ] Rodar testes: `python -m pytest backend/text-to-speak/tests -q`
+- [ ] Confirmar que `.env` e artefatos locais não estão sendo versionados
+- [ ] Validar integração com MongoDB no ambiente alvo
+- [ ] Validar upload, processamento, player e permissões manualmente
+- [ ] Verificar status do workflow de CI no GitHub Actions
+- [ ] Confirmar variáveis de ambiente de produção (`MONGO_URI`, `JWT_SECRET`, `CORS_ORIGINS`, `BACKEND_API_URL`)
+- [ ] Executar `git lfs pull` no ambiente de deploy para garantir o modelo de voz
 
 ## Deploy
 
