@@ -94,9 +94,9 @@ python -m pytest tests -q
 
 O OCR é executado em modo best-effort. Se a página do PDF não contiver texto nativo, o backend tenta converter a página em imagem e extrair o conteúdo via Tesseract. Quando as dependências de sistema não estiverem disponíveis, o documento é marcado como `Necessita OCR`.
 
-## Publicação no GitHub
+## Checklist de Release
 
-O repositório já inclui:
+Inclui:
 
 - workflow de CI em [`.github/workflows/ci.yml`](.github/workflows/ci.yml)
 - testes automatizados em `backend/text-to-speak/tests/`
@@ -105,18 +105,6 @@ O repositório já inclui:
 - comandos mais relevantes em [`comandos-relevantes.txt`](comandos-relevantes.txt)
 - template de issue em [`.github/ISSUE_TEMPLATE/bug_report.md`](.github/ISSUE_TEMPLATE/bug_report.md) e [`.github/ISSUE_TEMPLATE/feature_request.md`](.github/ISSUE_TEMPLATE/feature_request.md)
 - template de pull request em [`.github/pull_request_template.md`](.github/pull_request_template.md)
-
-## Checklist de Release
-
-Antes de publicar uma nova versão:
-
-- [ ] Rodar testes: `python -m pytest backend/text-to-speak/tests -q`
-- [ ] Confirmar que `.env` e artefatos locais não estão sendo versionados
-- [ ] Validar integração com MongoDB no ambiente alvo
-- [ ] Validar upload, processamento, player e permissões manualmente
-- [ ] Verificar status do workflow de CI no GitHub Actions
-- [ ] Confirmar variáveis de ambiente de produção (`MONGO_URI`, `JWT_SECRET`, `CORS_ORIGINS`, `BACKEND_API_URL`)
-- [ ] Executar `git lfs pull` no ambiente de deploy para garantir o modelo de voz
 
 ## Deploy
 
