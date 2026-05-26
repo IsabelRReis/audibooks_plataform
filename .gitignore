@@ -33,3 +33,4 @@ backend/text-to-speak/*.wav
 Thumbs.db
 .vscode/
 .idea/
+.vercel

@@ -47,6 +47,18 @@ Baseie-se em `backend/text-to-speak/.env.example` e configure:
 4. Valide streaming no player e retomada.
 5. Valide permissões (conceder/revogar).
 
+## Troubleshooting (erro de servidor)
+
+Se aparecer erro 500/502 no frontend em produção:
+
+1. Acesse `https://SEU_APP.vercel.app/api/health`.
+2. Se retornar `Variável BACKEND_API_URL não configurada no Vercel`, configure `BACKEND_API_URL` no painel do Vercel e redeploy.
+3. Se retornar `Falha ao encaminhar requisição para o backend`, valide:
+  - se o backend está online na URL configurada;
+  - se a URL não possui barra dupla ou caminho inválido;
+  - se o backend permite origem do Vercel em `CORS_ORIGINS`.
+4. Verifique os logs em Vercel: Project > Deployments > Functions > `api/[...path].js`.
+
 ## Observação importante
 
 Este projeto usa processamento pesado de áudio e escrita em disco local no backend. Em produção, mantenha o backend fora do ambiente serverless do Vercel para evitar limitações de tempo de execução e armazenamento efêmero.
